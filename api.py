@@ -18,12 +18,22 @@ def getAccount(id):
 
 @app.route("/account", methods=["POST"])
 def addAccount():
+        # import pdb 
+        # pdb.set_trace()
         name= request.json['name']
         balance=request.json['balance']
         data={'name':name,'balance':balance}
         accounts.append(data)
 
         return jsonify(data)
+
+# Endpoint for deleting a record
+@app.route("/account/<name>", methods=["DELETE"])
+def deleteAccounts(name):
+        acc=[account for account in accounts if account['name']==name]
+        accounts.remove(acc[0])
+        return jsonify(accounts)
+
 
 if __name__=='__main__':
         app.run(port=8080)

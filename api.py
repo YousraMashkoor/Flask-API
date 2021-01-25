@@ -27,13 +27,19 @@ def addAccount():
 
         return jsonify(data)
 
-# Endpoint for deleting a record
+
 @app.route("/account/<name>", methods=["DELETE"])
 def deleteAccounts(name):
         acc=[account for account in accounts if account['name']==name]
         accounts.remove(acc[0])
         return jsonify(accounts)
 
+@app.route("/accounts/<name>", methods=["PUT"])
+def updateAccounts(name):
+        acc=[account for account in accounts if account['name']==name]
+        acc[0]['name']=request.json['name']
+        acc[0]['balance']=request.json['balance']
+        return jsonify(accounts)
 
 if __name__=='__main__':
         app.run(port=8080)

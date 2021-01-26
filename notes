@@ -5,8 +5,15 @@ python
 >python -m pip freeze > requirements.txt
 
 
+******inserting data
+>from app import db, Customer
+>user=Customer(first_name="yousra",last_name="mashkoor",address="123 street", city="karachi", postcode="1234",email="yousra@gmail.com")
+>db.session.add(user)
+>db.session.commit()
 
-creating venv:
+
+
+**********creating venv:
 
 >sudo su
 >python3 -m venv venv
@@ -14,14 +21,21 @@ creating venv:
 >sudo -u yousra -H bash
 >source /customerAPI/venv/bin/activate
 
-deleting a file from git but not in local,
+
+******************deleting a file from git but not in local,
 >add the file to gitignore
 >git rm -r --cached name-of-the-folder
 >git commit -m "insert your comment inside this quotation marks"
 >git push origin
 
 
-Help links:
+*******************creating db
+>sudo -i -u postgresql
+>> createdb test --owner=openerp -Ttemp
+
+
+
+******************Help links:
 
 https://stackabuse.com/using-sqlalchemy-with-flask-and-postgresql/
 https://courses.prettyprinted.com/courses/1016334/lectures/21156610

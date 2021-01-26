@@ -6,7 +6,7 @@ python
 
 
 
-creaying venv:
+creating venv:
 
 >sudo su
 >python3 -m venv venv
@@ -14,6 +14,11 @@ creaying venv:
 >sudo -u yousra -H bash
 >source /customerAPI/venv/bin/activate
 
+deleting a file from git but not in local,
+>add the file to gitignore
+>git rm -r --cached name-of-the-folder
+>git commit -m "insert your comment inside this quotation marks"
+>git push origin
 
 
 Help links:

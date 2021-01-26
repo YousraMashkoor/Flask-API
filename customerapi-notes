@@ -1,0 +1,17 @@
+API gives access to customers, accounts, locations, product configuration, etc.
+
+Why?
+connect to our database
+Does not need the ERP to be up and running to extract data as it extracts the data directly from the databases.
+Restful and consistent. New and simpler database schema. 
+Better documented than the ERP API endpoints.
+all the databases are connected to the same service.
+
+How?
+
+The restless API from Flask, connects to all the PostgreSQL databases that the ERP NGUs (Next Generation Utilities) have and to AWS DynamoDB tables depending on the models configuration.
+
+concept:
+This Flask-Restless API connects to an existing ERP database and generates REST endpoints for some key customer related tables. These include accounts, phone numbers, addresses, customer info, etc.
+
+

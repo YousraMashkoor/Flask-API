@@ -1,0 +1,25 @@
+python
+>from main import db
+>db.create_all()
+
+>python -m pip freeze > requirements.txt
+
+
+
+creaying venv:
+
+>sudo su
+>python3 -m venv venv
+>apt-get install python3-venv #if not already
+>sudo -u yousra -H bash
+>source /customerAPI/venv/bin/activate
+
+
+
+Help links:
+
+https://stackabuse.com/using-sqlalchemy-with-flask-and-postgresql/
+https://courses.prettyprinted.com/courses/1016334/lectures/21156610
+https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
+https://www.youtube.com/watch?v=VSzNYfDQp8Y&list=PLei96ZX_m9sWQco3fwtSMqyGL-JDQo28l&index=5
+https://build.vsupalov.com/flask-sqlalchemy-postgres/

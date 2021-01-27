@@ -1,4 +1,4 @@
-from flask import Flask,jsonify,request
+from flask import Flask,jsonify,request, render_template
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import uuid
@@ -38,45 +38,45 @@ class Employees(db.Model):
     def __repr__(self):
         return '<Employees %r>' % self.username
 
-@app.route("/accounts",methods=["GET"])
-def getAccounts():
-        users=Employees.query.all()
-        results = [
-            {
-                "name": user.username,
-                "balance": user.salary,
-            } for user in users]
-        return jsonify(results)
+# @app.route("/accounts",methods=["GET"])
+# def getAccounts():
+#         users=Employees.query.all()
+#         results = [
+#             {
+#                 "name": user.username,
+#                 "balance": user.salary,
+#             } for user in users]
+#         return jsonify(results)
 
-@app.route("/account", methods=["POST"])
-def addAccount():
-        # import pdb 
-        # pdb.set_trace()
-        name= request.json['name']
-        balance=request.json['balance']
-        # data={'name':name,'balance':balance}
-        # accounts.append(data)
-        user=Employees(username=name,salary=balance)
-        db.session.add(user)
-        db.session.commit()
+# @app.route("/account", methods=["POST"])
+# def addAccount():
+#         # import pdb 
+#         # pdb.set_trace()
+#         name= request.json['name']
+#         balance=request.json['balance']
+#         # data={'name':name,'balance':balance}
+#         # accounts.append(data)
+#         user=Employees(username=name,salary=balance)
+#         db.session.add(user)
+#         db.session.commit()
 
-        return jsonify(name)
+#         return jsonify(name)
 
-@app.route("/account/<name>", methods=["DELETE"])
-def deleteAccounts(name):
-        user = Employees.query.filter_by(username=name).first()
-        db.session.delete(user)
-        db.session.commit()
-        return jsonify("Record deleted")
+# @app.route("/account/<name>", methods=["DELETE"])
+# def deleteAccounts(name):
+#         user = Employees.query.filter_by(username=name).first()
+#         db.session.delete(user)
+#         db.session.commit()
+#         return jsonify("Record deleted")
 
-@app.route("/accounts/<name>", methods=["PUT"])
-def updateAccounts(name):
-        user = Employees.query.filter_by(username=name).first()
-        user.username=request.json['name']
-        user.salary=request.json['balance']
-        db.session.add(user)
-        db.session.commit()
-        return jsonify("Record Updated")
+# @app.route("/accounts/<name>", methods=["PUT"])
+# def updateAccounts(name):
+#         user = Employees.query.filter_by(username=name).first()
+#         user.username=request.json['name']
+#         user.salary=request.json['balance']
+#         db.session.add(user)
+#         db.session.commit()
+#         return jsonify("Record Updated")
 
 @app.cli.command('resetdb')
 def resetdb_command():
@@ -117,6 +117,9 @@ def token_required(f):
         return f(current_user, *args, **kwargs)
    return decorator
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('register.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def signup_user():  
@@ -196,7 +199,7 @@ def get_employees(current_user):
 @app.route('/employee/<employee_id>', methods=['DELETE'])
 @token_required
 def delete_employee(current_user, employee_id):  
-    employee = Employees.query.filter_by(id=employee_id, user_id=current_user.id).first()   
+    employee = Employees.query.filter_by(id=employee_id, user_id=current_user.id).first()
     if not employee:   
        return jsonify({'message': 'Employees does not exists'})   
 
@@ -210,6 +213,8 @@ def delete_employee(current_user, employee_id):
 @token_required
 def update_employee(current_user,employee_id):
     employee=Employees.query.filter_by(id=employee_id,user_id=current_user.id).first()
+    if not employee:   
+       return jsonify({'message': 'Employees does not exists'})
     employee.username=request.json['username']
     employee.salary=request.json['salary']
     db.session.add(employee)

@@ -4,6 +4,8 @@ python
 
 >python -m pip freeze > requirements.txt
 
+**************Checking status of a port
+>netstat -tupln | grep 5000
 
 ******inserting data
 >from app import db, Customer
@@ -42,3 +44,13 @@ https://courses.prettyprinted.com/courses/1016334/lectures/21156610
 https://realpython.com/flask-by-example-part-2-postgres-sqlalchemy-and-alembic/
 https://www.youtube.com/watch?v=VSzNYfDQp8Y&list=PLei96ZX_m9sWQco3fwtSMqyGL-JDQo28l&index=5
 https://build.vsupalov.com/flask-sqlalchemy-postgres/
+
+
+
+*************** STEPS FOR JWT TOKEN
+1. create function to decode the token and match from record
+2. Hash the password if required (for registration)
+3. During login generate a token (that would later be passed to func in step 01)
+4. Now create routes and call func in step01 for validation before generating result
+
+https://geekflare.com/securing-flask-api-with-jwt/

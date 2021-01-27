@@ -5,13 +5,19 @@ import uuid
 import jwt
 import datetime
 from functools import wraps
-
+from environs import Env
 
 app= Flask(__name__)
-#DB_URL = 'postgresql+psycopg2://{user}:{pw}@{url}/{db}'.format(user=POSTGRES_USER,pw=POSTGRES_PW,url=POSTGRES_URL,db=POSTGRES_DB)
+
+env = Env()
+env.read_env()
+
+DB_URL = 'postgresql://{user}:{pw}@{url}/{db}'.format(user=env("POSTGRES_USER"),pw=env("POSTGRES_PW"),url=env("URL"),db=env("POSTGRES_DB"))
+#'postgresql://postgres:postgres@localhost/test'
+
 
 app.config['SECRET_KEY']='secretkey'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:postgres@localhost/test'
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False # silence the deprecation warning
 
 db = SQLAlchemy(app)

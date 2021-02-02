@@ -6,6 +6,7 @@ import jwt
 import datetime
 from functools import wraps
 from environs import Env
+import pdb
 
 app= Flask(__name__)
 
@@ -140,8 +141,8 @@ def signup_user():
         return jsonify({'message': 'registered successfully'})
 
 @app.route('/login', methods=['GET', 'POST'])  
-def login_user(): 
- 
+def login_user():
+  pdb.set_trace()
   auth = request.authorization   
 
   if not auth or not auth.username or not auth.password:  
